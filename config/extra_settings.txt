@@ -1,0 +1,28 @@
+# Credits/Pixels Loop
+currency.loop.enabled=true
+currency.loop.time.in.minutes=15
+credits.to.give=3000
+pixels.to.give=100
+
+# Diamonds Loop
+diamonds.loop.enabled=true
+diamonds.to.give=1
+diamonds.vip.only=true
+
+# Navigator New 2014 Style
+navigator.newstyle.enabled=false
+
+# Change Name Settings #
+change.name.staff=false
+change.name.vip=false
+change.name.everyone=false
+
+# Beta stuff and NUX gifts #
+enable.beta.camera=true
+newuser.gifts.enabled=false
+newuser.gift.yttv2.id=
+
+# Interactive stuff #
+everyone.use.floor=true
+figuredata.url=http://31.31.88.239/game/gamedata/figuredata.xml
+youtube.thumbnail.suburl=youtubethumbnail.php?Video
