@@ -481,7 +481,7 @@ namespace Cyber
             }
             else
             {
-                serverMessage.AppendString("<b>The hotel is shutting down for a break.</b><br />You may come back soon. Don't worry, everything's going to be saved..<br /><b>So long!</b>\r\n~ This session was powered by MercuryEmulator");
+                serverMessage.AppendString("<b>The hotel is shutting down for a break.</b><br />You may come back soon. Don't worry, everything's going to be saved..<br /><b>So long!</b>\r\n~ This session was powered by Cyber Emulator");
             }
             CyberEnvironment.GetGame().GetClientManager().QueueBroadcaseMessage(serverMessage);
             Thread.Sleep(6000);
