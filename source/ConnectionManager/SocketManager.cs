@@ -10,6 +10,7 @@ namespace ConnectionManager
 {
 	public class SocketManager
 	{
+		public delegate void ConnectionEvent(ConnectionInformation connection);
 		private HybridDictionary activeConnections;
 		private HybridDictionary ipConnectionCount;
 		private int maxIpConnectionCount;
@@ -20,9 +21,7 @@ namespace ConnectionManager
 		private bool acceptConnections;
 		private IDataParser parser;
 		private bool disableNagleAlgorithm;
-        public delegate void ConnectionEvent(ConnectionInformation connection);
 		public event SocketManager.ConnectionEvent connectionEvent;
-
 		public void init(int portID, int maxConnections, int connectionsPerIP, IDataParser parser, bool disableNaglesAlgorithm)
 		{
 			this.parser = parser;

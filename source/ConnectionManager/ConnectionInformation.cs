@@ -6,6 +6,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using Cyber.HabboHotel.GameClients;
+using Cyber.Core;
 
 namespace ConnectionManager
 {
@@ -190,19 +191,14 @@ namespace ConnectionManager
 				this.disconnect();
 			}
 		}
-		public void SendUnsafeData(byte[] packet)
-		{
-			if (!this.isConnected || ConnectionInformation.disableSend)
-			{
-				return;
-			}
-            // el puto rc4 clientside de josé no era verdad
-            //if (Client != null && Client.ARC4 != null)
+        public void SendUnsafeData(byte[] packet)
+        {
+            if (!this.isConnected || ConnectionInformation.disableSend)
             {
-              //   Client.ARC4.Encrypt(ref packet);
+                return;
             }
-			this.dataSocket.BeginSend(packet, 0, packet.Length, SocketFlags.None, this.sendCallback, null);
-		}
+            this.dataSocket.BeginSend(packet, 0, packet.Length, SocketFlags.None, this.sendCallback, null);
+        }
 		private void sentData(IAsyncResult iAr)
 		{
 			try

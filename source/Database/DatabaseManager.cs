@@ -5,21 +5,19 @@ namespace Cyber.Database
     internal sealed class DatabaseManager
     {
         private readonly string _connectionStr;
-        private IDatabaseClient databaseClient;
 
         public DatabaseManager(string ConnectionStr)
         {
             this._connectionStr = ConnectionStr;
-            this.databaseClient = new DatabaseConnection(this._connectionStr);
         }
         public IQueryAdapter getQueryReactor()
         {
-            this.databaseClient.connect();
-            return this.databaseClient.getQueryReactor();
+            IDatabaseClient databaseClient = new DatabaseConnection(this._connectionStr);
+            databaseClient.connect();
+            databaseClient.prepare();
+            return databaseClient.getQueryReactor();
+
         }
-        public void Destroy()
-        {
-            this.databaseClient.disconnect();
-        }
+        public void Destroy(){}
     }
 }
