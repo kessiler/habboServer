@@ -7,27 +7,27 @@ namespace Cyber.HabboHotel.Catalogs
 {
 	internal class GiftWrappers
 	{
-		private List<uint> GiftWrappersList = new List<uint>();
-		public List<uint> GetGiftWrappersList
-		{
-			get
-			{
-				return this.GiftWrappersList;
-			}
-		}
-		public GiftWrappers(IQueryAdapter dbClient)
+        internal List<uint> GiftWrappersList    = new List<uint>();
+        internal List<uint> OldGiftWrappersList = new List<uint>();
+
+        public GiftWrappers(IQueryAdapter dbClient)
 		{
 			dbClient.setQuery("SELECT * FROM gift_wrappers");
 			DataTable table = dbClient.getTable();
-			if (table.Rows.Count <= 0)
-			{
-				Logging.LogCriticalException("Failed to load the Gift Wrappers");
-				return;
-			}
-			foreach (DataRow dataRow in table.Rows)
-			{
-				this.GiftWrappersList.Add((uint)dataRow["baseid"]);
-			}
+            if (table.Rows.Count > 0)
+            {
+                foreach (DataRow dataRow in table.Rows)
+                {
+                    if (dataRow["type"].ToString() == "new")
+                    {
+                        this.GiftWrappersList.Add((uint)dataRow["sprite_id"]);
+                    }
+                    else if (dataRow["type"].ToString() == "old")
+                    {
+                        this.OldGiftWrappersList.Add((uint)dataRow["sprite_id"]);
+                    }
+                }
+            }
 		}
 	}
 }
