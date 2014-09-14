@@ -1640,14 +1640,7 @@ namespace Cyber.HabboHotel.Items
                                                                     {
                                                                         Message.AppendInt32((this.GetBaseItem().InteractionType == InteractionType.tilestackmagic) ? 0 : 1);
                                                                         Message.AppendInt32(0);
-                                                                        if (this.GetBaseItem().InteractionType != InteractionType.fbgate)
-                                                                        {
-                                                                            Message.AppendString(this.ExtraData);
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            Message.AppendString(string.Empty);
-                                                                        }
+                                                                        Message.AppendString(this.ExtraData);
                                                                     }
                                                                 }
                                                             }

@@ -169,12 +169,18 @@ namespace Cyber.HabboHotel.Items
 			}
 			return null;
 		}
-		internal Item GetItemBySprite(int SpriteId)
-		{
-			return (
-				from x in this.Items.Values
-				where x.SpriteId == SpriteId
-				select x).FirstOrDefault<Item>();
-		}
+
+        internal Item GetItemBySprite(int SpriteId, char Type)
+        {
+            return this.Items.Values.Where(x => x.SpriteId == SpriteId && x.Type == Type).FirstOrDefault<Item>();
+        }
+
+        internal Item GetItemByName(string Name)
+        {
+            return (
+                from x in this.Items.Values
+                where x.Name == Name
+                select x).FirstOrDefault<Item>();
+        }
 	}
 }

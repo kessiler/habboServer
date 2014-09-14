@@ -128,7 +128,7 @@ namespace Cyber.HabboHotel.Items
 						{
 							Message.AppendInt32((GetBaseItem().InteractionType == InteractionType.gift) ? 9 : 0);
 							Message.AppendInt32(0);
-							Message.AppendString(this.ExtraData);
+                            Message.AppendString((GetBaseItem().InteractionType == InteractionType.gift) ? "" : this.ExtraData);
 						}
 					}
 				}
@@ -158,11 +158,11 @@ namespace Cyber.HabboHotel.Items
                     ExtraParam = (Ribbon * 1000) + Colour;
                 }
             }
-            catch (Exception)
+            catch
             {
                 ExtraParam = 1001;
             }
-			Message.AppendInt32(ExtraParam);
+            Message.AppendInt32(ExtraParam);//ExtraParam
 		}
 		internal Item GetBaseItem()
 		{
