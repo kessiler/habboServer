@@ -181,14 +181,10 @@ namespace Cyber.Messages
             this.Response.Init(Outgoing.GiftWrappingConfigurationMessageComposer);
             this.Response.AppendBoolean(true);
             this.Response.AppendInt32(1);
-            this.Response.AppendInt32(CyberEnvironment.GiftWrapper.GetGiftWrappersList.Count);
-            using (List<uint>.Enumerator enumerator = CyberEnvironment.GiftWrapper.GetGiftWrappersList.GetEnumerator())
+            this.Response.AppendInt32(CyberEnvironment.GiftWrappers.GiftWrappersList.Count);
+            foreach (uint i in CyberEnvironment.GiftWrappers.OldGiftWrappersList)
             {
-                while (enumerator.MoveNext())
-                {
-                    int i = checked((int)enumerator.Current);
-                    this.Response.AppendInt32(i);
-                }
+                this.Response.AppendUInt(i);
             }
             this.Response.AppendInt32(8);
             this.Response.AppendInt32(0);
@@ -211,14 +207,11 @@ namespace Cyber.Messages
             this.Response.AppendInt32(8);
             this.Response.AppendInt32(9);
             this.Response.AppendInt32(10);
-            this.Response.AppendInt32(7);
-            this.Response.AppendInt32(187);
-            this.Response.AppendInt32(188);
-            this.Response.AppendInt32(189);
-            this.Response.AppendInt32(190);
-            this.Response.AppendInt32(191);
-            this.Response.AppendInt32(192);
-            this.Response.AppendInt32(193);
+            this.Response.AppendInt32(CyberEnvironment.GiftWrappers.OldGiftWrappersList.Count);
+            foreach (uint i in CyberEnvironment.GiftWrappers.OldGiftWrappersList)
+            {
+                this.Response.AppendUInt(i);
+            }
             this.SendResponse();
         }
 
@@ -2439,10 +2432,7 @@ namespace Cyber.Messages
 			ServerMessage serverMessage = new ServerMessage(Outgoing.LandingWidgetMessageComposer);
 			if (!string.IsNullOrEmpty(text))
 			{
-				string[] array = text.Split(new char[]
-				{
-					','
-				});
+                string[] array = text.Split(',');
 				if (array[1] == "gamesmaker")
 				{
 					return;
@@ -2916,29 +2906,6 @@ namespace Cyber.Messages
 					queryreactor.addParameter("answer", text);
 					queryreactor.runQuery();
 				}
-				/*Poll poll = CyberEnvironment.GetGame().GetPollManager().Polls[num];
-				if (poll.Type != Poll.PollType.Opinion && poll.Questions.Last<PollQuestion>().Index == num2)
-				{
-					foreach (PollQuestion current in poll.Questions)
-					{
-						foreach (UserPollData current2 in this.Session.GetHabbo().AnsweredPolls)
-						{
-							if (current2.PollId == num && current2.QuestionId == current.Index && current2.Answer != current.CorrectAnswer)
-							{
-								return;
-							}
-						}
-					}
-					if (poll.Type == Poll.PollType.Prize_Badge)
-					{
-						this.Session.GetHabbo().GetBadgeComponent().GiveBadge(poll.Prize, true, this.Session, false);
-						return;
-					}
-					if (poll.Type == Poll.PollType.Prize_Furni)
-					{
-						this.Session.GetHabbo().GetInventoryComponent().AddNewItem(0u, uint.Parse(poll.Prize.ToString()), "", 0u, true, false, 0, 0, "");
-					}
-				}*/
 			}
 		}
 		internal void TileStackMagicSetHeight()
@@ -2957,10 +2924,14 @@ namespace Cyber.Messages
 			}
 
 			int HeightToSet = this.Request.PopWiredInt32();
-			if (HeightToSet > 1000)
-			{
-				HeightToSet = 1000;
-			}
+            if (HeightToSet > 1000)
+            {
+                HeightToSet = 1000;
+            }
+            else if (HeightToSet < 0)
+            {
+                HeightToSet = 0;
+            }
 			double TotalZ = (double)(HeightToSet / 100);
 			Room.GetRoomItemHandler().SetFloorItem(Item, Item.GetX, Item.GetY, TotalZ, Item.Rot, true);
 		}
@@ -5301,6 +5272,7 @@ namespace Cyber.Messages
 				{
 					queryreactor.runFastQuery("UPDATE room_items_toner SET enabled = '" + room.TonerData.Enabled + "' LIMIT 1");
 				}
+                return;
 			}
 			else
 			{
@@ -6085,6 +6057,9 @@ namespace Cyber.Messages
                 {
                     this.Session.GetHabbo().DailyPetRespectPoints--;
                     CyberEnvironment.GetGame().GetAchievementManager().ProgressUserAchievement(this.Session, "ACH_PetRespectGiver", 1, false);
+                    string[] value = PetLocale.GetValue("pet.respected");
+                    string message = value[new Random().Next(0, checked(value.Length - 1))];
+                    pet.Chat(null, message, false, 0, 0);
                     using (IQueryAdapter queryreactor = CyberEnvironment.GetDatabaseManager().getQueryReactor())
                     {
                         queryreactor.runFastQuery("UPDATE user_stats SET daily_pet_respect_points = daily_pet_respect_points - 1 WHERE id = " + this.Session.GetHabbo().Id + " LIMIT 1");
@@ -7572,7 +7547,15 @@ namespace Cyber.Messages
                     this.Response.AppendBoolean(false);
                 }
             }
-			this.Response.AppendInt32(checked(CyberEnvironment.GetUnixTimestamp() - Habbo.LastOnline));
+
+            if (CyberEnvironment.GetGame().GetClientManager().GetClientByUserID(Habbo.Id) == null)
+            {
+                this.Response.AppendInt32(checked(CyberEnvironment.GetUnixTimestamp() - Habbo.PreviousOnline));
+            }
+            else
+            {
+                this.Response.AppendInt32(checked(CyberEnvironment.GetUnixTimestamp() - Habbo.LastOnline));
+            }
 			this.Response.AppendBoolean(true);
 			this.SendResponse();
 			this.Response.Init(Outgoing.UserBadgesMessageComposer);

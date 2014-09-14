@@ -144,6 +144,7 @@ namespace Cyber.Messages.Headers
         internal static int SuperNotificationMessageComposer = 3062;//Finn
         internal static int SerializePetMessageComposer = 619;//Finn
         internal static int RespectPetMessageComposer = 2872;//Finn
+        internal static int PetRespectNotificationMessageComposer = 2410;//Finn
         internal static int LandingRewardMessageComposer = 1094;//Finn
         internal static int LoadVolumeMessageComposer = 102;//Finn
         internal static int LoadWardrobeMessageComposer = 507;//Finn
@@ -232,5 +233,8 @@ namespace Cyber.Messages.Headers
         internal static int SetFloorPlanDoorMessageComposer = 2844;//Finn
         internal static int NuxListGiftsMessageComposer = 1098;//Finn
         internal static int BuildersClubMembershipMessageComposer = 1499;//Finn
+        internal static int LoveLockDialogueMessageComposer = 1903;//Finn
+        internal static int LoveLockDialogueSetLockedMessageComposer = 652;//Finn
+        internal static int LoveLockDialogueCloseMessageComposer = 777;//Finn
     }
 }

@@ -190,6 +190,9 @@ namespace Cyber.Messages.Headers
         internal static int RemovePostItMessageEvent = 2028;//Finn
         internal static int EnableInventoryEffectMessageEvent = 1061;//Finn
         internal static int EffectEnableMessageEvent = 1075;//Finn
+        internal static int MovePetMessageEvent = 1135;//Finn
+        internal static int CompostMonsterplantMessageEvent = 2405;//Finn
+        internal static int ConfirmLoveLockMessageEvent = 2302;//Finn
         #endregion
         #region Quests & Achievements
         internal static int OpenQuestsMessageEvent = 1422;//Finn
