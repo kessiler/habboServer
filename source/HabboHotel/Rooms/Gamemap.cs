@@ -814,7 +814,7 @@ namespace Cyber.HabboHotel.Rooms
         }
         internal bool SquareIsOpen(int x, int y, bool pOverride)
         {
-            return checked(this.mDynamicModel.MapSizeX - 1 >= x && this.mDynamicModel.MapSizeY - 1 >= y) && Gamemap.CanWalk(this.mGameMap[x, y], pOverride);
+            return checked(this.mDynamicModel.MapSizeX - 1 >= x && this.mDynamicModel.MapSizeY - 1 >= y) && Gamemap.CanWalk(this.mGameMap[x, y], pOverride); 
         }
 
         internal bool IsValidStep2(RoomUser User, Point From, Point To, bool EndOfPath, bool Override)
@@ -915,7 +915,7 @@ namespace Cyber.HabboHotel.Rooms
             {
                 result = (this.mDynamicModel.SqState[x, y] == SquareState.OPEN);
             }
-            catch (Exception)
+            catch
             {
                 result = false;
             }
@@ -945,6 +945,10 @@ namespace Cyber.HabboHotel.Rooms
                 double num2 = 0.0;
                 foreach (RoomItem current in ItemsOnSquare)
                 {
+                    if (current.GetBaseItem().InteractionType == InteractionType.tilestackmagic)
+                    {
+                        return current.GetZ;
+                    }
                     if (current.TotalHeight > num)
                     {
                         if (current.GetBaseItem().IsSeat || current.GetBaseItem().InteractionType == InteractionType.bed || current.GetBaseItem().InteractionType == InteractionType.bedtent)

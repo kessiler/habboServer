@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump	1	/* 
+﻿-- phpMyAdmin SQL Dump	1	/* 
 -- version 3.2.4	2	Navicat MySQL Data Transfer 
 -- http://www.phpmyadmin.net 	 	
 -- 	 	
@@ -11231,94 +11231,117 @@ CREATE TABLE `fuse_cmds` (
 -- ----------------------------
 -- Records of fuse_cmds
 -- ----------------------------
-INSERT INTO `fuse_cmds` VALUES ('1', 'commands', '1', null, 'Mira los comandos!');
-INSERT INTO `fuse_cmds` VALUES ('2', 'ri', '7', null, 'Recarga ítems');
-INSERT INTO `fuse_cmds` VALUES ('3', 'reload', '1', null, 'Recarga la sala.');
-INSERT INTO `fuse_cmds` VALUES ('4', 'ha', '4', 'msj', 'Alerta a todos');
-INSERT INTO `fuse_cmds` VALUES ('5', 'rc', '7', null, 'Recarga el catálogo');
-INSERT INTO `fuse_cmds` VALUES ('6', 'alert', '4', 'user msj', 'alertar');
-INSERT INTO `fuse_cmds` VALUES ('7', 'enable', '6', 'id', 'Efecto (VIP)');
-INSERT INTO `fuse_cmds` VALUES ('8', 'push', '6', 'user', 'Empujar (VIP)');
-INSERT INTO `fuse_cmds` VALUES ('9', 'pull', '6', 'user', 'Atraer (VIP)');
-INSERT INTO `fuse_cmds` VALUES ('10', 'spull', '6', 'user', 'Superatraccion (VIP)');
-INSERT INTO `fuse_cmds` VALUES ('11', 'habnam', '6', null, 'Gangnam Style (VIP)');
-INSERT INTO `fuse_cmds` VALUES ('12', 'moonwalk', '6', null, 'Caminar como MJ (VIP)');
-INSERT INTO `fuse_cmds` VALUES ('13', 'hit', '6', 'user', 'Golpear (VIP)');
-INSERT INTO `fuse_cmds` VALUES ('14', 'mimic', '6', 'user', 'Copiar look (VIP)');
-INSERT INTO `fuse_cmds` VALUES ('15', 'kick', '4', 'user', 'Kickear');
-INSERT INTO `fuse_cmds` VALUES ('16', 'tele', '5', null, 'Teletransportacion!');
-INSERT INTO `fuse_cmds` VALUES ('17', 'override', '6', null, 'Traspasar.');
-INSERT INTO `fuse_cmds` VALUES ('18', 'dc', '7', 'user', 'Desconecta a alguien');
-INSERT INTO `fuse_cmds` VALUES ('19', 'dcroom', '8', null, 'Desconecta la Sala entera.');
-INSERT INTO `fuse_cmds` VALUES ('20', 'nuxeros', '6', 'user cantidad', 'Te da N nuxeros!');
-INSERT INTO `fuse_cmds` VALUES ('21', 'loyalty', '5', 'user cantidad', 'Te da N fidelidad!');
-INSERT INTO `fuse_cmds` VALUES ('22', 'duckets', '5', 'user cantidad', 'Te da N duckets!');
-INSERT INTO `fuse_cmds` VALUES ('23', 'credits', '5', 'user cantidad', 'Te da N creditos!');
-INSERT INTO `fuse_cmds` VALUES ('24', 'globalcredits', '6', 'cantidad', 'Créditos a todos!!');
-INSERT INTO `fuse_cmds` VALUES ('25', 'masscredits', '6', 'cantidad', 'Créditos a todos LOS Online');
-INSERT INTO `fuse_cmds` VALUES ('26', 'info', '1', null, 'Info sobre el server. (Mercury)');
-INSERT INTO `fuse_cmds` VALUES ('27', 'roomalert', '4', 'msj', 'Alerta sala');
-INSERT INTO `fuse_cmds` VALUES ('28', 'reloadall', '8', '', 'Hace reload a todas las Salas!! :O');
-INSERT INTO `fuse_cmds` VALUES ('29', 'givebadge', '6', 'user codigo', 'Da placa.');
-INSERT INTO `fuse_cmds` VALUES ('30', 'massbadge', '6', 'codigo', 'Placa para todos los online!');
-INSERT INTO `fuse_cmds` VALUES ('31', 'roombadge', '6', 'codigo', 'Placa para todos en la Sala!');
-INSERT INTO `fuse_cmds` VALUES ('32', 'coords', '7', null, 'Muestra coordenadas XYZ Rot');
-INSERT INTO `fuse_cmds` VALUES ('33', 'sa', '4', 'msj', 'Alerta Staff');
-INSERT INTO `fuse_cmds` VALUES ('34', 'makepublic', '7', null, 'Hace que una sala sea pública');
-INSERT INTO `fuse_cmds` VALUES ('35', 'makeprivate', '7', null, 'Hace que una sala sea privada');
-INSERT INTO `fuse_cmds` VALUES ('36', 'roomaction', '6', 'id', 'Toda la sala hace la acción N!');
-INSERT INTO `fuse_cmds` VALUES ('37', 'sit', '1', null, 'Sientate!^^');
-INSERT INTO `fuse_cmds` VALUES ('38', 'lay', '1', null, 'Acuestate!^^');
-INSERT INTO `fuse_cmds` VALUES ('39', 'pickall', '1', null, 'Para recoger todo lo de tu sala');
-INSERT INTO `fuse_cmds` VALUES ('40', 'setmax', '1', 'num', 'Para establecer maximo de users en tu Sala!');
-INSERT INTO `fuse_cmds` VALUES ('41', 'userinfo', '5', 'user', 'Para obtener informacion acerca de un usuario.');
-INSERT INTO `fuse_cmds` VALUES ('42', 'disablediagonal', '1', null, 'Para desactivar el diagonal en tu sala.');
-INSERT INTO `fuse_cmds` VALUES ('43', 'freeze', '6', 'user', 'Para congelar a un usuario.');
-INSERT INTO `fuse_cmds` VALUES ('44', 'unfreeze', '6', 'user', 'Para descongelar un usuario');
-INSERT INTO `fuse_cmds` VALUES ('45', 'setspeed', '1', 'num', 'Para establecer velocidad de Rollers');
-INSERT INTO `fuse_cmds` VALUES ('46', 'emptypets', '1', null, 'Para vaciar inventario de mascotas.');
-INSERT INTO `fuse_cmds` VALUES ('47', 'redeemall', '1', null, 'Para convertir Lingotes, Monedas o Sacos en créditos (Deben estar en tu inventario)');
-INSERT INTO `fuse_cmds` VALUES ('48', 'mutebots', '1', null, 'Mutear bots de la Sala.');
-INSERT INTO `fuse_cmds` VALUES ('49', 'dance', '1', 'num', 'Para bailar! Puedes especificar ID si quieres');
-INSERT INTO `fuse_cmds` VALUES ('50', 'empty', '1', null, 'Para vaciar inventario.');
-INSERT INTO `fuse_cmds` VALUES ('51', 'roommute', '4', 'msj', 'Mutea Sala (especifcar alerta)');
-INSERT INTO `fuse_cmds` VALUES ('52', 'roomunmute', '4', null, 'Para desmutear sala.');
-INSERT INTO `fuse_cmds` VALUES ('53', 'mute', '4', 'user', 'Para mutear a alguien');
-INSERT INTO `fuse_cmds` VALUES ('54', 'unmute', '4', 'user', 'Para desmutear a alguien');
-INSERT INTO `fuse_cmds` VALUES ('55', 'summon', '6', 'user', 'Para atraer a alguien.');
-INSERT INTO `fuse_cmds` VALUES ('56', 'summonall', '8', null, 'Para atraer a todo el hotel a tu Sala.');
-INSERT INTO `fuse_cmds` VALUES ('57', 'follow', '1', 'user', 'Para seguir a alguien');
-INSERT INTO `fuse_cmds` VALUES ('58', 'roomkick', '4', 'msj', 'Para kickear a toda la sala. Incluye alerta.');
-INSERT INTO `fuse_cmds` VALUES ('59', 'superban', '5', 'user', 'Para banear a alguien por largo tiempo');
-INSERT INTO `fuse_cmds` VALUES ('60', 'massdance', '5', 'num', '¡Todos bailan en la Sala!');
-INSERT INTO `fuse_cmds` VALUES ('61', 'shutdown', '8', null, 'Para apagar INUX');
-INSERT INTO `fuse_cmds` VALUES ('62', 'superha', '7', 'img msj', 'Envía una super notificacion (BETA)');
-INSERT INTO `fuse_cmds` VALUES ('63', 'eventha', '4', 'msj', 'Envia notificación de evento con detalles');
-INSERT INTO `fuse_cmds` VALUES ('64', 'ban', '5', 'user time msj', 'Banear a alguien de forma temporal');
-INSERT INTO `fuse_cmds` VALUES ('65', 'unban', '5', 'user', 'Desbanea a alguien');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (1, 'commands', 1, NULL, 'this');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (2, 'refresh_items', 7, NULL, 'Refresh items from database');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (3, 'reload', 1, NULL, 'Reloads the current room');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (4, 'ha', 4, 'msg', 'Alert to everyone in the hotel');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (5, 'refresh_catalogue', 7, NULL, 'Refresh the catalogue from database');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (6, 'alert', 4, 'user msg', 'User alert');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (7, 'enable', 2, 'id', 'Enables an effect (ID)');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (8, 'push', 2, 'user', 'Push someone.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (9, 'pull', 2, 'user', 'Pull someone');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (10, 'spull', 6, 'user', 'Super pull someone.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (11, 'habnam', 1, NULL, 'Let''s do the Gangnam Style!');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (12, 'moonwalk', 1, NULL, 'Moonwalking like M.J.!');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (13, 'hit', 2, 'user', 'Hit (user)');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (14, 'mimic', 2, 'user', 'Copy look (user)');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (15, 'kick', 4, 'user', 'Kick user');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (16, 'tele', 5, NULL, 'Teletransportation');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (17, 'override', 6, NULL, 'Walk override furniture and users!');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (18, 'dc', 7, 'user', 'Disconnect someone');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (19, 'dcroom', 8, NULL, 'Disconnects a entire room');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (20, 'diamonds', 6, 'user qty', 'Gives you x diamonds!');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (21, 'loyalty', 5, 'user qty', 'DEPRECATED as of June 15, 2014 only giving diamonds');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (22, 'duckets', 5, 'user qty', 'Gives you x duckets!');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (23, 'credits', 5, 'user qty', 'Gives you x credits!');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (24, 'globalcredits', 6, 'qty', 'Gives credits to everyone in the hotel.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (25, 'masscredits', 6, 'qty', 'Gives credits to everyone online.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (26, 'info', 1, NULL, 'Server information.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (27, 'roomalert', 4, 'msg', 'Alerts the current room');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (28, 'reloadall', 8, '', 'Reloads all rooms in the hotel');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (29, 'givebadge', 6, 'user code', 'Gives badge to an user');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (30, 'massbadge', 6, 'code', 'Gives a badge to everyone online');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (31, 'roombadge', 6, 'badgecode', 'Gives a badge to everyone in the room');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (32, 'coords', 7, NULL, 'Shows your X Y Z and rotation coords');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (33, 'sa', 4, 'msj', 'Internal staff alert');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (34, 'makepublic', 7, NULL, 'Makes your room public');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (35, 'makeprivate', 7, NULL, 'Makes your room private');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (36, 'roomaction', 6, 'id', 'Everyone does the (ID) action');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (37, 'sit', 1, NULL, 'Sit.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (38, 'lay', 1, NULL, 'Lay.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (39, 'pickall', 1, NULL, 'Pick every furniture from your room');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (40, 'setmax', 1, 'num', 'Set maximum users in your room.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (41, 'userinfo', 5, 'user', 'See user information.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (42, 'disablediagonal', 1, NULL, 'Disable diagonal in your room');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (43, 'freeze', 6, 'user', 'To freeze an user');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (44, 'unfreeze', 6, 'user', 'To unfreeze an user');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (45, 'setspeed', 1, 'num', 'Set roller speed. Lowest is fastest.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (46, 'emptypets', 1, NULL, 'Empty your pets inventory');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (47, 'redeemall', 1, NULL, 'Redeem your coins and gold bars into real cash.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (48, 'mutebots', 1, NULL, 'Mute room bots.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (49, 'dance', 1, 'num', 'Dance');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (50, 'empty', 1, NULL, 'To empty your inventory');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (51, 'roommute', 4, 'msg', 'To mute room with message.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (52, 'roomunmute', 4, NULL, 'To unmute room');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (53, 'mute', 4, 'user', 'To mute someone');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (54, 'unmute', 4, 'user', 'To unmute someone');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (55, 'summon', 6, 'user', 'To summon someone');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (56, 'summonall', 8, NULL, 'Summons everyone to your room');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (57, 'follow', 1, 'user', 'Follow someone');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (58, 'roomkick', 4, 'msg', 'To kick the entire room with alert.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (59, 'superban', 5, 'user', 'User ban for a long, long time.');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (60, 'massdance', 5, 'num', 'Everyone dances in the room');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (61, 'shutdown', 8, NULL, 'Shutdown the hotel');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (62, 'superha', 7, 'msg', 'Send a super notif to the hotel');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (63, 'eventha', 4, 'msg', 'Notify of a event!');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (64, 'ban', 5, 'user time msg', 'Ban someone');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (65, 'unban', 5, 'user', 'Unban someone');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (66, 'refresh_youtube', 7, NULL, 'Refresh youtube playlists from database');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (67, 'refresh_polls', 7, NULL, 'Refresh Polls');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (79, 'refresh_navigator', 7, NULL, 'Refresh navigator from database');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (70, 'refresh_bannedhotels', 8, NULL, 'Refresh the list of banned hotels from database');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (71, 'refresh_songs', 7, NULL, 'Refresh the  jukebox songs from database');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (72, 'refresh_achievements', 7, NULL, 'Refresh achievements from database');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (69, 'refresh_petbreeds', 7, NULL, 'Refresh pet breeds from database');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (74, 'refresh_promos', 7, NULL, 'Refresh hotelview promos from database');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (68, 'anonha', 7, 'msg', 'Send an anonymous hotel alert through this!');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (80, 'refresh_ranks', 8, NULL, 'Refresh ranks from database');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (81, 'refresh_settings', 8, NULL, 'Refresh emulator settings');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (82, 'refresh_groups', 7, NULL, 'Reloads all groups ');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (83, 'refresh_bans', 7, NULL, 'Refresh bans from database');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (84, 'refresh_quests', 7, NULL, 'Refresh quests from database');
+INSERT INTO `fuse_cmds` (`id`, `command`, `rank`, `params`, `description`) VALUES (85, 'setvideo', 1, NULL, 'Set a custom video in all YouTube TVs');
 
 -- ----------------------------
 -- Table structure for gift_wrappers
 -- ----------------------------
 DROP TABLE IF EXISTS `gift_wrappers`;
-CREATE TABLE `gift_wrappers` (
-  `baseid` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`baseid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `gift_wrappers` (
+  `sprite_id` int(10) unsigned NOT NULL,
+  `type` enum('new','old') NOT NULL DEFAULT 'new',
+  PRIMARY KEY (`sprite_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of gift_wrappers
 -- ----------------------------
-INSERT INTO `gift_wrappers` VALUES ('3080');
-INSERT INTO `gift_wrappers` VALUES ('3081');
-INSERT INTO `gift_wrappers` VALUES ('3082');
-INSERT INTO `gift_wrappers` VALUES ('3083');
-INSERT INTO `gift_wrappers` VALUES ('3084');
-INSERT INTO `gift_wrappers` VALUES ('3085');
-INSERT INTO `gift_wrappers` VALUES ('3086');
-INSERT INTO `gift_wrappers` VALUES ('3087');
-INSERT INTO `gift_wrappers` VALUES ('3088');
-INSERT INTO `gift_wrappers` VALUES ('3089');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(3372, 'new');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(3373, 'new');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(3374, 'new');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(3375, 'new');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(3376, 'new');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(3377, 'new');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(3378, 'new');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(3379, 'new');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(3380, 'new');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(3381, 'new');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(187, 'old');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(188, 'old');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(189, 'old');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(190, 'old');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(191, 'old');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(192, 'old');
+INSERT INTO `gift_wrappers` (`sprite_id`, `type`) VALUES(193, 'old');
 
 -- ----------------------------
 -- Table structure for groups

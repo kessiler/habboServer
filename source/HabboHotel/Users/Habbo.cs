@@ -48,6 +48,7 @@ namespace Cyber.HabboHotel.Users
 		internal uint CurrentRoomId;
 		internal uint HomeRoom;
 		internal int LastOnline;
+        internal int PreviousOnline;
 		internal bool IsTeleporting;
 		internal bool IsHopping;
 		internal uint TeleportingRoomID;
@@ -245,6 +246,7 @@ namespace Cyber.HabboHotel.Users
 			this.UsersRooms = new HashSet<RoomData>();
 			this.HasFriendRequestsDisabled = HasFriendRequestsDisabled;
             this.LastOnline = CyberEnvironment.GetUnixTimestamp();//LastOnline;
+            this.PreviousOnline = LastOnline;
             this.RecentlyVisitedRooms = new HashSet<uint>();
 			this.CurrentQuestId = currentQuestID;
 			this.IsHopping = false;
