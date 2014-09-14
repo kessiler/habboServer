@@ -74,7 +74,7 @@ namespace Cyber.HabboHotel.Misc
                             builder.Append("Your commands:\n");
                             foreach (DataRow row in this.Commands.Rows)
                             {
-                                builder.Append(":" + Convert.ToString(row[0]) + " " + Convert.ToString(row[1]) + "\n - " + Convert.ToString(row[2]) + "\n");
+                                builder.Append(":" + Convert.ToString(row[0]) + " " + Convert.ToString(row[1]) + " - " + Convert.ToString(row[2]) + "\n");
                             }
                             this.Session.SendNotifWithScroll(builder.ToString());
                         }
@@ -444,11 +444,11 @@ namespace Cyber.HabboHotel.Misc
 
                             if (CyberEnvironment.GetGame().GetVideoManager().PlayVideoInRoom(Room, Video))
                             {
-                                Session.SendNotif("Felicidades, ¡ya has puesto tu vídeo custom en todas las TVs de esta Sala! Haz doble clic sobre una, espera y aparecerá.");
+                                Session.SendNotif("Good, your custom video is being now played in all the room TVs! Double click one, wait and you'll see.");
                             }
                             else
                             {
-                                Session.SendNotif("Ha habido un error mientras intentabas poner tu vídeo. Verifica si has escrito bien el link.");
+                                Session.SendNotif("There was an error. Please, verify your video link is correct.");
                             }
 
 
@@ -563,6 +563,7 @@ namespace Cyber.HabboHotel.Misc
                         }
 
                     case "mimic":
+                    case "copy":
                     case "copylook":
                         if (this.Session.GetHabbo().HasFuse("fuse_vip_commands") || this.Session.GetHabbo().VIP)
                         {
@@ -702,7 +703,7 @@ namespace Cyber.HabboHotel.Misc
                             }
                             if (Params.Length == 1)
                             {
-                                SendChatMessage(this.Session, "\x00a1No hay user que se llame as\x00ed!");
+                                SendChatMessage(this.Session, "Unable to find the user you specified.");
                                 return true;
                             }
                             GameClient client4 = CyberEnvironment.GetGame().GetClientManager().GetClientByUsername(Params[1]);
@@ -712,7 +713,7 @@ namespace Cyber.HabboHotel.Misc
                             }
                             if (client4.GetHabbo().Id == this.Session.GetHabbo().Id)
                             {
-                                SendChatMessage(this.Session, "No puedes atraerte a ti mismo!");
+                                SendChatMessage(this.Session, "You can't pull yourself!");
                                 return true;
                             }
                             RoomUser user15 = room18.GetRoomUserManager().GetRoomUserByHabbo(client4.GetHabbo().Id);
@@ -726,7 +727,7 @@ namespace Cyber.HabboHotel.Misc
                             }
                             if ((Math.Abs((int)(user14.X - user15.X)) >= 3) || (Math.Abs((int)(user14.Y - user15.Y)) >= 3))
                             {
-                                SendChatMessage(this.Session, "El usuario est\x00e1 muy lejos.");
+                                SendChatMessage(this.Session, "User is too far away to pull.");
                                 return true;
                             }
                             if ((user14.RotBody % 2) != 0)
@@ -783,7 +784,7 @@ namespace Cyber.HabboHotel.Misc
                                     this.Session.GetHabbo().GetAvatarEffectsInventoryComponent().ActivateCustomEffect(int.Parse(num6.ToString()));
                                     return true;
                                 }
-                                SendChatMessage(this.Session, "\x00bfAcaso no has aprendido matem\x00e1ticas nunca? '" + s + "' no es un n\x00famero.");
+                                SendChatMessage(this.Session, "You're pretty bad at math, '" + s + "' ain't a number, nigga.");
                             }
                             return true;
                         }
@@ -1414,10 +1415,9 @@ namespace Cyber.HabboHotel.Misc
                     case "belcredits":
                     case "diamonds":
                     case "diamantes":
-                    case "nuxeros":
                     case "givediamonds":
-                    case "darnuxeros":
-                        if (this.Session.GetHabbo().GotCommand("nuxeros"))
+                    case "loyalty":
+                        if (this.Session.GetHabbo().GotCommand("diamonds"))
                         {
                             int num13;
                             GameClient client18 = null;
@@ -1499,27 +1499,28 @@ namespace Cyber.HabboHotel.Misc
                             return true;
                         }
 
-                    case "update_furnisprites":
-                        {
-                            if (this.Session.GetHabbo().GotCommand("ri"))
-                            {
-                                CyberEnvironment.GetGame().GetItemManager().UpdateFlats();
-                            }
-                            return true;
-                        }
+                    // TODO Review this here.
+                    //case "update_furnisprites":
+                    //    {
+                    //        if (this.Session.GetHabbo().GotCommand("ri"))
+                    //        {
+                    //            CyberEnvironment.GetGame().GetItemManager().UpdateFlats();
+                    //        }
+                    //        return true;
+                    //    }
 
-                    case "testgccollect":
-                        {
-                            if (this.Session.GetHabbo().GotCommand("ri"))
-                            {
-                                GC.Collect();
-                            }
-                            return true;
-                        }
+                    //case "testgccollect":
+                    //    {
+                    //        if (this.Session.GetHabbo().GotCommand("ri"))
+                    //        {
+                    //            GC.Collect();
+                    //        }
+                    //        return true;
+                    //    }
 
                     case "anonha":
                         {
-                            if (this.Session.GetHabbo().GotCommand("ri"))
+                            if (this.Session.GetHabbo().GotCommand("anonha"))
                             {
                                 string str16 = MergeParams(Params, 1);
                                 ServerMessage message8 = new ServerMessage(Outgoing.BroadcastNotifMessageComposer);
@@ -1628,22 +1629,25 @@ namespace Cyber.HabboHotel.Misc
                             SendChatMessage(this.Session, "You cannot teleport whilst riding a horse!");
                             return true;
                         }
+
                     case "update_youtube":
                     case "refresh_youtube":
-                        if (!this.Session.GetHabbo().GotCommand("ri"))
+                        if (!this.Session.GetHabbo().GotCommand("refresh_youtube"))
                         {
                             return false;
                         }
-                        this.Session.SendWhisper("Por favor espera, recargando los playlists YouTube...");
+                        this.Session.SendWhisper("Please wait, updating YouTube playlists...");
                         using (IQueryAdapter adapter5 = CyberEnvironment.GetDatabaseManager().getQueryReactor())
                         {
                             CyberEnvironment.GetGame().GetVideoManager().Load(adapter5);
                         }
-                        this.Session.SendWhisper("\x00a1Listo! Los playlists YouTube han sido recargados.");
+                        this.Session.SendWhisper("Done! YouTube playlists were reloaded.");
                         return true;
 
                     case "reload_polls":
-                        if (!this.Session.GetHabbo().GotCommand("ri"))
+                    case "refresh_polls":
+                    case "update_polls":
+                        if (!this.Session.GetHabbo().GotCommand("refresh_polls"))
                         {
                             return false;
                         }
@@ -1654,7 +1658,8 @@ namespace Cyber.HabboHotel.Misc
                         return true;
 
                     case "update_breeds":
-                        if (!this.Session.GetHabbo().GotCommand("ri"))
+                    case "refresh_petbreeds":
+                        if (!this.Session.GetHabbo().GotCommand("refresh_petbreeds"))
                         {
                             return false;
                         }
@@ -1665,7 +1670,8 @@ namespace Cyber.HabboHotel.Misc
                         return true;
 
                     case "update_publi":
-                        if (!this.Session.GetHabbo().GotCommand("ri"))
+                    case "refresh_bannedhotels":
+                        if (!this.Session.GetHabbo().GotCommand("refresh_bannedhotels"))
                         {
                             return false;
                         }
@@ -1676,7 +1682,8 @@ namespace Cyber.HabboHotel.Misc
                         return true;
 
                     case "update_songs":
-                        if (!this.Session.GetHabbo().GotCommand("ri"))
+                    case "refresh_songs":
+                        if (!this.Session.GetHabbo().GotCommand("refresh_songs"))
                         {
                             return false;
                         }
@@ -1685,7 +1692,8 @@ namespace Cyber.HabboHotel.Misc
                         return true;
 
                     case "update_achievements":
-                        if (!this.Session.GetHabbo().GotCommand("ri"))
+                    case "refresh_achievements":
+                        if (!this.Session.GetHabbo().GotCommand("refresh_achievements"))
                         {
                             return false;
                         }
@@ -1704,8 +1712,7 @@ namespace Cyber.HabboHotel.Misc
                     case "recache_catalogue":
                     case "refresh_catalogue":
                     case "refreshcata":
-                    case "rc":
-                        if (this.Session.GetHabbo().GotCommand("rc"))
+                        if (this.Session.GetHabbo().GotCommand("refresh_catalogue"))
                         {
                             using (IQueryAdapter adapter8 = CyberEnvironment.GetDatabaseManager().getQueryReactor())
                             {
@@ -1716,7 +1723,7 @@ namespace Cyber.HabboHotel.Misc
                         return true;
 
                     case "refresh_promos":
-                        if (this.Session.GetHabbo().GotCommand("ri"))
+                        if (this.Session.GetHabbo().GotCommand("refresh_promos"))
                         {
                             CyberEnvironment.GetGame().GetHotelView().RefreshPromoList();
                         }
@@ -1726,8 +1733,7 @@ namespace Cyber.HabboHotel.Misc
                     case "reload_items":
                     case "recache_items":
                     case "refresh_items":
-                    case "ri":
-                        if (this.Session.GetHabbo().GotCommand("ri"))
+                        if (this.Session.GetHabbo().GotCommand("refresh_items"))
                         {
                             using (IQueryAdapter adapter9 = CyberEnvironment.GetDatabaseManager().getQueryReactor())
                             {
@@ -1740,7 +1746,7 @@ namespace Cyber.HabboHotel.Misc
                     case "reload_navigator":
                     case "recache_navigator":
                     case "refresh_navigator":
-                        if (this.Session.GetHabbo().GotCommand("ri"))
+                        if (this.Session.GetHabbo().GotCommand("refresh_navigator"))
                         {
                             using (IQueryAdapter adapter11 = CyberEnvironment.GetDatabaseManager().getQueryReactor())
                             {
@@ -1754,7 +1760,7 @@ namespace Cyber.HabboHotel.Misc
                     case "reload_ranks":
                     case "recache_ranks":
                     case "refresh_ranks":
-                        if (this.Session.GetHabbo().GotCommand("ri"))
+                        if (this.Session.GetHabbo().GotCommand("refresh_ranks"))
                         {
                             using (IQueryAdapter adapter12 = CyberEnvironment.GetDatabaseManager().getQueryReactor())
                             {
@@ -1768,7 +1774,7 @@ namespace Cyber.HabboHotel.Misc
                     case "reload_settings":
                     case "recache_settings":
                     case "refresh_settings":
-                        if (this.Session.GetHabbo().GotCommand("ri"))
+                        if (this.Session.GetHabbo().GotCommand("refresh_settings"))
                         {
                             using (IQueryAdapter adapter13 = CyberEnvironment.GetDatabaseManager().getQueryReactor())
                             {
@@ -1781,18 +1787,16 @@ namespace Cyber.HabboHotel.Misc
                     case "reload_groups":
                     case "recache_groups":
                     case "refresh_groups":
-                        if (this.Session.GetHabbo().GotCommand("ri"))
+                        if (this.Session.GetHabbo().GotCommand("refresh_groups"))
                         {
-                            using (IQueryAdapter dbClient = CyberEnvironment.GetDatabaseManager().getQueryReactor())
-                            {
-                                CyberEnvironment.GetGame().GetGroupManager().InitGroups(dbClient);
-                            }
+                            CyberEnvironment.GetGame().GetGroupManager().InitGroups();
                             this.Session.SendNotif("Groups have been successfully reloaded");
                         }
                         return true;
 
                     case "update_bans":
-                        if (this.Session.GetHabbo().GotCommand("ri"))
+                    case "refresh_bans":
+                        if (this.Session.GetHabbo().GotCommand("refresh_bans"))
                         {
                             using (IQueryAdapter adapter14 = CyberEnvironment.GetDatabaseManager().getQueryReactor())
                             {
@@ -1803,7 +1807,8 @@ namespace Cyber.HabboHotel.Misc
                         return true;
 
                     case "update_quests":
-                        if (this.Session.GetHabbo().GotCommand("ri"))
+                    case "refresh_quests":
+                        if (this.Session.GetHabbo().GotCommand("refresh_quests"))
                         {
                             CyberEnvironment.GetGame().GetQuestManager().Initialize(CyberEnvironment.GetDatabaseManager().getQueryReactor());
                             this.Session.SendNotif("Quests have been successfully reloaed!");
@@ -1925,9 +1930,7 @@ namespace Cyber.HabboHotel.Misc
                         this.Session.SendNotif("You need to enter an amount!");
                         return true;
 
-                    case "massnux":
                     case "massbelcredits":
-                    case "massnuxeros":
                     case "massdiamonds":
                         if (!this.Session.GetHabbo().GotCommand("masscredits"))
                         {
