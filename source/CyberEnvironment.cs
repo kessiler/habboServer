@@ -32,7 +32,7 @@ namespace Cyber
     internal static class CyberEnvironment
     {
 
-        internal static readonly string PrettyBuild = "1.0.0";
+        internal static readonly string PrettyBuild = "1.0.1";
         internal static readonly string PrettyVersion = "Cyber Emulator";
         internal static readonly string PrettyRelease = "RELEASE63-201408141029-609065162";
         internal static bool isLive;
@@ -42,7 +42,7 @@ namespace Cyber
         internal static CultureInfo cultureInfo;
         internal static DateTime ServerStarted;
         internal static Dictionary<uint, List<OfflineMessage>> OfflineMessages;
-        internal static GiftWrappers GiftWrapper;
+        internal static GiftWrappers GiftWrappers;
         internal static int LiveCurrencyType = 105;
         internal static MusSocket MusSystem;
         private static ConfigurationData Configuration;
@@ -168,7 +168,7 @@ namespace Cyber
                     PetLocale.Init(queryreactor);
                     OfflineMessages = new Dictionary<uint, List<OfflineMessage>>();
                     OfflineMessage.InitOfflineMessages(queryreactor);
-                    GiftWrapper = new GiftWrappers(queryreactor);
+                    GiftWrappers = new GiftWrappers(queryreactor);
                 }
 
                 FriendRequestLimit = (uint)int.Parse(CyberEnvironment.GetConfig().data["client.maxrequests"]);
@@ -466,7 +466,6 @@ namespace Cyber
         }
         internal static void PerformShutDown(bool Restart)
         {
-            //Console.Clear();
             DateTime now = DateTime.Now;
             CyberEnvironment.ShutdownInitiated = true;
             ServerMessage serverMessage = new ServerMessage(Outgoing.SuperNotificationMessageComposer);
