@@ -339,7 +339,7 @@ namespace Cyber.HabboHotel.Catalogs
                     uint GroupId;
                     if (!uint.TryParse(ExtraData, out GroupId))
                     {
-                        Session.SendNotif("No se ha podido crear tu foro por un error interno. Por favor, repórtalo.");
+                        Session.SendNotif("Your group forum couldn't be created by an unknown error. Please report it.");
                         return;
                     }
                     else
@@ -347,18 +347,18 @@ namespace Cyber.HabboHotel.Catalogs
                         Guild Grap = CyberEnvironment.GetGame().GetGroupManager().GetGroup(GroupId);
                         if (Grap == null)
                         {
-                            Session.SendNotif("No se ha podido crear tu foro por un error interno. Por favor, repórtalo.");
+                            Session.SendNotif("Your group forum couldn't be created by an unknown error. Please report it");
                             return;
                         }
                         else if (!Grap.HasForum && Grap.CreatorId == Session.GetHabbo().Id)
                         {
                             Grap.HasForum = true;
-                            CyberEnvironment.GetGame().GetClientManager().SendSuperNotif("¡Felicitaciones!", "Acabas de crear un Foro para tu Grupo.", "admin", Session, "event:groupforum/" + Grap.Id, "Acceder a tu nuevo Foro", false, false);
+                            CyberEnvironment.GetGame().GetClientManager().SendSuperNotif("Congratulations!", "You successfully purchased a Forum for your group.", "admin", Session, "event:groupforum/" + Grap.Id, "Enter my new Group Forum", false, false);
                             Grap.UpdateForum();
                         }
                         else if (Grap.CreatorId != Session.GetHabbo().Id && !Grap.HasForum)
                         {
-                            Session.SendNotif("No eres el dueño de grupo. De igual manera recibiste una Terminal de Foro de Grupo, que funcionará sólo cuando el dueño compre un foro para su grupo.");
+                            Session.SendNotif("Uhm, looks like you're not the owner of the group. Anyway, you received a Group Forum Terminal, which would work only when the owner of the group buys a forum.");
                         }
                     }
                 }
@@ -454,7 +454,7 @@ namespace Cyber.HabboHotel.Catalogs
                     {
                         if ((DateTime.Now - Session.GetHabbo().LastGiftPurchaseTime).TotalSeconds <= 15.0)
                         {
-                            Session.SendNotif("¡Estás comprando regalos demasiado rápido! Por favor, espera un poco antes de comprar otro. Esto se hace por seguridad.");
+                            Session.SendNotif("You're purchasing gifts too fast! Please wait 15 seconds, then you purchase another gift.");
                             return;
                         }
 
@@ -507,7 +507,7 @@ namespace Cyber.HabboHotel.Catalogs
                     }
                     if (IsGift && item.GetBaseItem(current2).Type == 'e')
                     {
-                        Session.SendNotif("No puedes enviar este Regalo porque es un efecto.");
+                        Session.SendNotif("You can't send effects as gifts.");
                         return;
                     }
                     string text = "";
@@ -706,7 +706,7 @@ namespace Cyber.HabboHotel.Catalogs
                     Session.SendMessage(CatalogPacket.PurchaseOK());
                     if (IsGift)
                     {
-                        Item itemBySprite = CyberEnvironment.GetGame().GetItemManager().GetItemBySprite(GiftSpriteId);
+                        Item itemBySprite = CyberEnvironment.GetGame().GetItemManager().GetItemBySprite(GiftSpriteId, 's');
 
                         if (itemBySprite == null)
                         {
@@ -785,18 +785,6 @@ namespace Cyber.HabboHotel.Catalogs
                                 (char)9,
                                 item.Name
 							}), 0u, false, false, 0, 0, "");
-                            clientByUserID.GetHabbo().GetInventoryComponent().SendFloorInventoryUpdate();
-                            clientByUserID.GetMessageHandler().GetResponse().Init(Outgoing.NewInventoryObjectMessageComposer);
-                            clientByUserID.GetMessageHandler().GetResponse().AppendInt32(1);
-                            clientByUserID.GetMessageHandler().GetResponse().AppendInt32(1);
-                            clientByUserID.GetMessageHandler().GetResponse().AppendInt32(1);
-                            clientByUserID.GetMessageHandler().GetResponse().AppendUInt(userItem.Id);
-                            clientByUserID.GetMessageHandler().SendResponse();
-                            InventoryComponent inventoryComponent = clientByUserID.GetHabbo().GetInventoryComponent();
-                            if (inventoryComponent != null)
-                            {
-                                inventoryComponent.RunDBUpdate();
-                            }
                             if (clientByUserID.GetHabbo().Id != Session.GetHabbo().Id)
                             {
                                 CyberEnvironment.GetGame().GetAchievementManager().ProgressUserAchievement(clientByUserID, "ACH_GiftReceiver", 1, false);
