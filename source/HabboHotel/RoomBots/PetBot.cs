@@ -28,82 +28,6 @@ namespace Cyber.HabboHotel.RoomBots
 			}
 		}
 
-        private void SearchItemToInteract(InteractionType Type)
-        {
-            RoomUser roomUser = base.GetRoomUser();
-            var Items = base.GetRoom().GetRoomItemHandler().mFloorItems.Values.Where(x => x.GetBaseItem().InteractionType == Type);
-            if (Items.Count() < 1)
-            {
-                return;
-            }
-            else
-            {
-                this.ActionTimer = 1700;
-                this.EnergyTimer = 1300;
-
-                Items.RoomItem Item = Items.FirstOrDefault();
-                roomUser.MoveTo(Item.GetX, Item.GetY);
-                roomUser.SetRot(PathFinder.CalculateRotation(roomUser.X, roomUser.Y, Item.GetX, Item.GetY));
-                
-                switch (Type)
-                {
-                    case InteractionType.petball:
-                        {
-                            roomUser.Statusses.Add("gst", "joy");
-                            roomUser.UpdateNeeded = true;
-                            Item.ExtraData = "1";
-                            Item.UpdateState();
-                            roomUser.Statusses.Add("pla", "");
-                            roomUser.UpdateNeeded = true;
-                            roomUser.PetData.AddExperience(20);
-                            Thread.Sleep(3000);
-                            Item.ExtraData = "0";
-                            Item.UpdateState();
-                        }
-                        break;
-
-                    case InteractionType.petfood:
-                        {
-                            int foodState = (String.IsNullOrWhiteSpace(Item.ExtraData)) ? 0 : int.Parse(Item.ExtraData);
-                            
-                            roomUser.Statusses.Add("eat", "");
-                            roomUser.UpdateNeeded = true;
-
-                            if (Item == null)
-                            {
-                                break;
-                            }
-
-                            foodState++;
-                            Item.ExtraData = foodState.ToString();
-                            Item.UpdateState();
-
-                            if (roomUser.PetData.Energy < (Pet.MaxEnergy - 15))
-                            {
-                                roomUser.PetData.Energy += 15;
-                            }
-
-                            if (foodState >= 5)
-                            {
-                                Item.GetRoom().GetRoomItemHandler().RemoveRoomItem(Item, false);
-
-                                using (IQueryAdapter queryreactor2 = CyberEnvironment.GetDatabaseManager().getQueryReactor())
-                                {
-                                    queryreactor2.runFastQuery("DELETE FROM items WHERE id = " + Item.Id);
-                                }
-                                return;
-                            }
-
-                        }
-                        break;
-                }
-
-                this.ActionTimer = 25;
-                this.EnergyTimer = 25;
-            }
-        }
-
-
 		private void RemovePetStatus()
 		{
 			RoomUser roomUser = base.GetRoomUser();
@@ -316,6 +240,7 @@ namespace Cyber.HabboHotel.RoomBots
                 case "ADELANTE":
                 case "FORWARD":
                 case "DELANTE":
+                case "MOVE FORWARD":
                 case "STRAIGHT":
                             if (!roomUser.PetData.HasCommand(24))
                             {
@@ -335,6 +260,7 @@ namespace Cyber.HabboHotel.RoomBots
                             break;
 
                 case "IZQUIERDA":
+                case "FOLLOW LEFT":
                 case "LEFT":
                             if (!roomUser.PetData.HasCommand(15))
                             {
@@ -390,6 +316,7 @@ namespace Cyber.HabboHotel.RoomBots
                             break;
 
                 case "DERECHA":
+                case "FOLLOW RIGHT":
                 case "RIGHT":
                             if (!roomUser.PetData.HasCommand(16))
                             {
@@ -719,19 +646,16 @@ namespace Cyber.HabboHotel.RoomBots
 								Point randomWalkableSquare = base.GetRoom().GetGameMap().getRandomWalkableSquare();
 								base.GetRoomUser().MoveTo(randomWalkableSquare.X, randomWalkableSquare.Y);
 							}
-							else
-							{
-								base.GetRoomUser().PetData.MoplaBreed.OnTimerTick(base.GetRoomUser().PetData.LastHealth, base.GetRoomUser().PetData.UntilGrown);
-                            }
 						}
 
-                        if (new Random().Next(3, 14) % 2 == 0)
+                        if (new Random().Next(2, 15) % 2 == 0)
                         {
                             if (base.GetRoomUser().PetData.Type == 16)
                             {
                                 MoplaBreed breed = base.GetRoomUser().PetData.MoplaBreed;
                                 base.GetRoomUser().PetData.Energy--;
                                 base.GetRoomUser().AddStatus("gst", (breed.LiveState == MoplaState.DEAD) ? "sad" : "sml");
+                                base.GetRoomUser().PetData.MoplaBreed.OnTimerTick(base.GetRoomUser().PetData.LastHealth, base.GetRoomUser().PetData.UntilGrown);
                             }
                             else
                             {
