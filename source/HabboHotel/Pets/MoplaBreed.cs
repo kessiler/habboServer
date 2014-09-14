@@ -1,13 +1,14 @@
+using Database_Manager.Database.Session_Details.Interfaces;
+using System;
+using System.Data;
+
 namespace Cyber.HabboHotel.Pets
 {
-    using Database_Manager.Database.Session_Details.Interfaces;
-    using Cyber;
-    using System;
-    using System.Data;
 
     internal class MoplaBreed
     {
         private string BreedData;
+        private Pet Pet;
         private bool DBUpdateNeeded;
         internal int GrowingStatus;
         internal MoplaState LiveState;
@@ -25,8 +26,9 @@ namespace Cyber.HabboHotel.Pets
             this.GrowingStatus = int.Parse(Row["growing_status"].ToString());
         }
 
-        internal MoplaBreed(uint PetId, int Rarity, string MoplaName, string BreedData, int LiveState, int GrowingStatus)
+        internal MoplaBreed(Pet Pet, uint PetId, int Rarity, string MoplaName, string BreedData, int LiveState, int GrowingStatus)
         {
+            this.Pet = Pet;
             this.PetId = PetId;
             this.Rarity = Rarity;
             this.MoplaName = MoplaName;
@@ -41,7 +43,7 @@ namespace Cyber.HabboHotel.Pets
             if (Pet.Type == 16)
             {
                 Tuple<string, string> tuple = GeneratePlantData(Pet.Rarity);
-                breed = new MoplaBreed(Pet.PetId, Pet.Rarity, tuple.Item1, tuple.Item2, 0, 1);
+                breed = new MoplaBreed(Pet, Pet.PetId, Pet.Rarity, tuple.Item1, tuple.Item2, 0, 1);
                 using (IQueryAdapter adapter = CyberEnvironment.GetDatabaseManager().getQueryReactor())
                 {
                     adapter.setQuery("INSERT INTO bots_monsterplants (pet_id, rarity, plant_name, plant_data) VALUES (@petid , @rarity , @plantname , @plantdata)");
@@ -474,7 +476,7 @@ namespace Cyber.HabboHotel.Pets
                     }
                     break;
             }
-            return new Tuple<string, string>(str, string.Concat(new object[] { "16 0 ffffff 2 1 ", num2, " ", num, " 0 -1 7" }));
+            return new Tuple<string, string>(str, string.Concat(new object[] { "16 ", num, " ffffff 2 1 ", num2, " ", num, " 0 -1 7" }));
         }
 
         internal void KillPlant()
@@ -488,9 +490,9 @@ namespace Cyber.HabboHotel.Pets
             if ((int)LiveState != 0)
             {
                 return;
-                }
-            TimeSpan span = (TimeSpan)(DateTime.Now - LastHealth);
-            if (span.Seconds >= 129550)
+            }
+            TimeSpan span = (TimeSpan)(LastHealth - DateTime.Now);
+            if (span.TotalSeconds <= 0)
             {
                 this.KillPlant();
             }
@@ -529,6 +531,11 @@ namespace Cyber.HabboHotel.Pets
                     {
                         this.GrowingStatus = 2;
                         this.DBUpdateNeeded = true;
+                    }
+
+                    if (span2.TotalSeconds % 8 == 0)
+                    {
+                        Pet.Energy--;
                     }
                 }
             }

@@ -186,99 +186,136 @@ namespace Cyber.HabboHotel.Pets
             return PetCommands[Command];
         }
 
-		internal void OnRespect()
-		{
-			checked
-			{
-				this.Respect++;
-				ServerMessage serverMessage = new ServerMessage(Outgoing.RespectPetMessageComposer);
-				serverMessage.AppendInt32(this.VirtualId);
-				serverMessage.AppendInt32(0);
-				this.Room.SendMessage(serverMessage);
-				if (this.DBState != DatabaseUpdateState.NeedsInsert)
-				{
-					this.DBState = DatabaseUpdateState.NeedsUpdate;
-				}
-				if (this.Experience <= 51900)
-				{
-					this.AddExperience(10);
-				}
+        internal void OnRespect()
+        {
+            checked
+            {
+                this.Respect++;
+                ServerMessage serverMessage = new ServerMessage(Outgoing.RespectPetMessageComposer);
+                serverMessage.AppendInt32(this.VirtualId);
+                serverMessage.AppendBoolean(true);
+                this.Room.SendMessage(serverMessage);
+
+                serverMessage = new ServerMessage(Outgoing.PetRespectNotificationMessageComposer);
+                serverMessage.AppendInt32(1);
+                serverMessage.AppendInt32(this.VirtualId);
+                this.SerializeInventory(serverMessage);
+                this.Room.SendMessage(serverMessage);
+
+                if (this.DBState != DatabaseUpdateState.NeedsInsert)
+                {
+                    this.DBState = DatabaseUpdateState.NeedsUpdate;
+                }
+                if (Type != 16 && this.Experience <= 51900)
+                {
+                    this.AddExperience(10);
+                }
                 if (Type == 16)
                 {
                     Energy = 100;
                 }
-				this.LastHealth = DateTime.Now.AddSeconds(129600.0);
-			}
-		}
+                this.LastHealth = DateTime.Now.AddSeconds(129600.0);
+            }
+        }
 
-		internal void AddExperience(int Amount)
-		{
-			checked
-			{
-				this.Experience += Amount;
-				if (this.Experience >= 51900)
-				{
-					return;
-				}
-				if (this.DBState != DatabaseUpdateState.NeedsInsert)
-				{
-					this.DBState = DatabaseUpdateState.NeedsUpdate;
-				}
-				if (this.Room != null)
-				{
-					ServerMessage serverMessage = new ServerMessage(Outgoing.AddPetExperienceMessageComposer);
-					serverMessage.AppendUInt(this.PetId);
-					serverMessage.AppendInt32(this.VirtualId);
-					serverMessage.AppendInt32(Amount);
-					this.Room.SendMessage(serverMessage);
-					if (this.Experience > this.experienceGoal)
-					{
+        internal void AddExperience(int Amount)
+        {
+            checked
+            {
+                int oldExperienceGoal = this.experienceGoal;
+                this.Experience += Amount;
+                if (this.Experience >= 51900)
+                {
+                    return;
+                }
+                if (this.DBState != DatabaseUpdateState.NeedsInsert)
+                {
+                    this.DBState = DatabaseUpdateState.NeedsUpdate;
+                }
+                if (this.Room != null)
+                {
+                    ServerMessage serverMessage = new ServerMessage(Outgoing.AddPetExperienceMessageComposer);
+                    serverMessage.AppendUInt(this.PetId);
+                    serverMessage.AppendInt32(this.VirtualId);
+                    serverMessage.AppendInt32(Amount);
+                    this.Room.SendMessage(serverMessage);
+
+                    if (this.Experience >= oldExperienceGoal)
+                    {
                         GameClients.GameClient OwnerSession = CyberEnvironment.GetGame().GetClientManager().GetClientByUserID(OwnerId);
-
-                        if (OwnerSession != null)
-                        {
-                            ServerMessage LevelNotify = new ServerMessage(Outgoing.NotifyNewPetLevelMessageComposer);
-                            LevelNotify.AppendUInt(PetId);
-                            LevelNotify.AppendString(Name);
-                            LevelNotify.AppendInt32(Level);
-                            OwnerSession.SendMessage(LevelNotify);
-                        }
 
                         // Reset pet commands
                         PetCommands.Clear();
                         PetCommands = PetCommandHandler.GetPetCommands(this);
-					}
-				}
-			}
-		}
+
+                        if (OwnerSession != null)
+                        {
+                            ServerMessage LevelNotify = new ServerMessage(Outgoing.NotifyNewPetLevelMessageComposer);
+                            this.SerializeInventory(LevelNotify, true);
+                            OwnerSession.SendMessage(LevelNotify);
+
+                            ServerMessage TP = new ServerMessage();
+                            TP.Init(Outgoing.PetTrainerPanelMessageComposer);
+                            TP.AppendUInt(this.PetId);
+
+                            List<short> AvailableCommands = new List<short>();
+
+                            TP.AppendInt32(PetCommands.Count);
+                            foreach (short Sh in PetCommands.Keys)
+                            {
+                                TP.AppendInt32(Sh);
+                                if (PetCommands[Sh] == true)
+                                {
+                                    AvailableCommands.Add(Sh);
+                                }
+                            }
+
+                            TP.AppendInt32(AvailableCommands.Count);
+                            foreach (short Sh in AvailableCommands)
+                            {
+                                TP.AppendInt32(Sh);
+                            }
+                            OwnerSession.SendMessage(TP);
+                        }
+
+                    }
+                }
+            }
+        }
+
 		internal void PetEnergy(bool Add)
 		{
 			checked
 			{
-				int num;
-				if (Add)
-				{
-					if (this.Energy == 100)
-					{
-						return;
-					}
-					if (this.Energy > 85)
-					{
-						num = Pet.MaxEnergy - this.Energy;
-					}
-					else
-					{
-						num = 10;
-					}
-				}
-				else
-				{
-					num = 15;
-				}
-				if (num <= 4)
-				{
-					num = 15;
-				}
+                int num;
+                if (Add)
+                {
+                    if (this.Energy > 100)
+                    {
+                        this.Energy = 100;
+                        return;
+                    }
+                    else if (this.Energy > 85)
+                    {
+                        return;
+                    }
+                    if (this.Energy > 85)
+                    {
+                        num = Pet.MaxEnergy - this.Energy;
+                    }
+                    else
+                    {
+                        num = 10;
+                    }
+                }
+                else
+                {
+                    num = 15;
+                }
+                if (num <= 4)
+                {
+                    num = 15;
+                }
 				int randomNumber = CyberEnvironment.GetRandomNumber(4, num);
 				if (!Add)
 				{
@@ -298,10 +335,15 @@ namespace Cyber.HabboHotel.Pets
 				}
 			}
 		}
-		internal void SerializeInventory(ServerMessage Message)
-		{
-			Message.AppendUInt(this.PetId);
-			Message.AppendString(this.Name);
+
+        internal void SerializeInventory(ServerMessage Message, bool LevelAfterName = false)
+        {
+            Message.AppendUInt(this.PetId);
+            Message.AppendString(this.Name);
+            if (LevelAfterName)
+            {
+                Message.AppendInt32(this.Level);
+            }
 			Message.AppendUInt(this.Type);
 			Message.AppendInt32(int.Parse(this.Race));
 			Message.AppendString((this.Type == 16u) ? "ffffff" : this.Color);
@@ -392,37 +434,49 @@ namespace Cyber.HabboHotel.Pets
                 serverMessage.AppendBoolean(false);
             }
 			serverMessage.AppendInt32(this.Rarity);
-			checked
-			{
-				if (this.Type == 16u)
-				{
+            checked
+            {
+                if (this.Type == 16u)
+                {
                     serverMessage.AppendInt32(129600);
-					if (this.MoplaBreed.LiveState == MoplaState.DEAD)
-					{
-						serverMessage.AppendInt32(0);
-						serverMessage.AppendInt32(0);
-					}
-                    else if(this.MoplaBreed.LiveState == MoplaState.GROWN)
+                    int LastHealthSeconds = (int)(this.LastHealth - DateTime.Now).TotalSeconds;
+                    int UntilGrownSeconds = (int)(this.UntilGrown - DateTime.Now).TotalSeconds;
+
+                    if (LastHealthSeconds < 0)
                     {
-                        serverMessage.AppendInt32((int)(this.LastHealth - DateTime.Now).TotalSeconds);
+                        LastHealthSeconds = 0;
+                    }
+                    if (UntilGrownSeconds < 0)
+                    {
+                        UntilGrownSeconds = 0;
+                    }
+
+                    if (this.MoplaBreed.LiveState == MoplaState.DEAD)
+                    {
+                        serverMessage.AppendInt32(0);
                         serverMessage.AppendInt32(0);
                     }
-					else
-					{
-                        serverMessage.AppendInt32((int)(this.LastHealth - DateTime.Now).TotalSeconds);
-                        serverMessage.AppendInt32((int)(this.UntilGrown - DateTime.Now).TotalSeconds);
-					}
-				}
-				else
-				{
-					serverMessage.AppendInt32(-1);
-					serverMessage.AppendInt32(-1);
-					serverMessage.AppendInt32(-1);
-				}
+                    else if (this.MoplaBreed.LiveState == MoplaState.GROWN)
+                    {
+                        serverMessage.AppendInt32(LastHealthSeconds);
+                        serverMessage.AppendInt32(0);
+                    }
+                    else
+                    {
+                        serverMessage.AppendInt32(LastHealthSeconds);
+                        serverMessage.AppendInt32(UntilGrownSeconds);
+                    }
+                }
+                else
+                {
+                    serverMessage.AppendInt32(-1);
+                    serverMessage.AppendInt32(-1);
+                    serverMessage.AppendInt32(-1);
+                }
 
-				serverMessage.AppendBoolean(false); // Allow breed?
-				return serverMessage;
-			}
+                serverMessage.AppendBoolean(true);
+                return serverMessage;
+            }
 		}
 	}
 }
