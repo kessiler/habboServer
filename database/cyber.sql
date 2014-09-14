@@ -4713,11 +4713,11 @@ INSERT INTO `catalog_items` VALUES ('4418', '181', '4825', 'gld_tile1', '5', '0'
 INSERT INTO `catalog_items` VALUES ('4419', '181', '4826', 'gld_table1', '5', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
 INSERT INTO `catalog_items` VALUES ('4421', '178', '5549', 'fball_ltd14', '500', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
 INSERT INTO `catalog_items` VALUES ('5729', '15', '5576', 'vikings_teleport', '5', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
-INSERT INTO `catalog_items` VALUES ('4423', '170', '5551', 'CF_diamond_2500', '2500', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
-INSERT INTO `catalog_items` VALUES ('4424', '170', '5552', 'CF_diamond_1000', '1000', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
-INSERT INTO `catalog_items` VALUES ('4425', '170', '5553', 'CF_diamond_500', '500', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
-INSERT INTO `catalog_items` VALUES ('4426', '170', '5554', 'CF_diamond_250', '250', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
-INSERT INTO `catalog_items` VALUES ('4427', '170', '5555', 'CF_diamond_100', '100', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
+INSERT INTO `catalog_items` VALUES ('4423', '170', '5551', 'CF_2500_diamond', '2500', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
+INSERT INTO `catalog_items` VALUES ('4424', '170', '5552', 'CF_1000_diamond', '1000', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
+INSERT INTO `catalog_items` VALUES ('4425', '170', '5553', 'CF_500_diamond', '500', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
+INSERT INTO `catalog_items` VALUES ('4426', '170', '5554', 'CF_250_diamond', '250', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
+INSERT INTO `catalog_items` VALUES ('4427', '170', '5555', 'CF_100_diamond', '100', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
 INSERT INTO `catalog_items` VALUES ('4677', '143', '4677', 'horse_hopper', '5', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
 INSERT INTO `catalog_items` VALUES ('4674', '143', '4674', 'horse_fin_poster', '5', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
 INSERT INTO `catalog_items` VALUES ('4672', '143', '4672', 'obstacle_bush', '5', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '', '');
