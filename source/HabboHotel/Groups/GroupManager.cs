@@ -22,7 +22,7 @@ namespace Cyber.HabboHotel.Groups
 		internal HybridDictionary SymbolColours;
 		internal HybridDictionary BackGroundColours;
 		internal HybridDictionary Groups;
-        internal void InitGroups(IQueryAdapter dbClient)
+        internal void InitGroups()
 		{
 			this.Bases = new HashSet<GroupBases>();
 			this.Symbols = new HashSet<GroupSymbols>();
@@ -32,33 +32,36 @@ namespace Cyber.HabboHotel.Groups
             this.Groups = new HybridDictionary();
 			this.ClearInfo();
 
-            dbClient.setQuery("SELECT * FROM group_badgeparts");
-            DataTable table = dbClient.getTable();
-
-            if (table == null) { return; }
-            foreach (DataRow row in table.Rows)
+            using (IQueryAdapter dbClient = CyberEnvironment.GetDatabaseManager().getQueryReactor())
             {
-                switch (row["type"].ToString().ToLower())
+                dbClient.setQuery("SELECT * FROM group_badgeparts");
+                DataTable table = dbClient.getTable();
+
+                if (table == null) { return; }
+                foreach (DataRow row in table.Rows)
                 {
-                    case "base":
-                        this.Bases.Add(new GroupBases(int.Parse(row["id"].ToString()), row["code"].ToString(), row["code2"].ToString()));
-                        break;
+                    switch (row["type"].ToString().ToLower())
+                    {
+                        case "base":
+                            this.Bases.Add(new GroupBases(int.Parse(row["id"].ToString()), row["code"].ToString(), row["code2"].ToString()));
+                            break;
 
-                    case "symbol":
-                        this.Symbols.Add(new GroupSymbols(int.Parse(row["id"].ToString()), row["code"].ToString(), row["code2"].ToString()));
-                        break;
+                        case "symbol":
+                            this.Symbols.Add(new GroupSymbols(int.Parse(row["id"].ToString()), row["code"].ToString(), row["code2"].ToString()));
+                            break;
 
-                    case "base_color":
-                        this.BaseColours.Add(new GroupBaseColours(int.Parse(row["id"].ToString()), row["code"].ToString()));
-                        break;
+                        case "base_color":
+                            this.BaseColours.Add(new GroupBaseColours(int.Parse(row["id"].ToString()), row["code"].ToString()));
+                            break;
 
-                    case "symbol_color":
-                        this.SymbolColours.Add(int.Parse(row["id"].ToString()), new GroupSymbolColours(int.Parse(row["id"].ToString()), row["code"].ToString()));
-                        break;
+                        case "symbol_color":
+                            this.SymbolColours.Add(int.Parse(row["id"].ToString()), new GroupSymbolColours(int.Parse(row["id"].ToString()), row["code"].ToString()));
+                            break;
 
-                    case "other_color":
-                        this.BackGroundColours.Add(int.Parse(row["id"].ToString()), new GroupBackGroundColours(int.Parse(row["id"].ToString()), row["code"].ToString()));
-                        break;
+                        case "other_color":
+                            this.BackGroundColours.Add(int.Parse(row["id"].ToString()), new GroupBackGroundColours(int.Parse(row["id"].ToString()), row["code"].ToString()));
+                            break;
+                    }
                 }
             }
 		}

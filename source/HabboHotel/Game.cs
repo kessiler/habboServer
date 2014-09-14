@@ -216,7 +216,7 @@ namespace Cyber.HabboHotel
 				this.ModerationTool.LoadPendingTickets(queryReactor);
 				PetRace.Init(queryReactor);
 				AntiPublicistas.Load(queryReactor);
-				this.GetGroupManager().InitGroups(queryReactor);
+				this.GetGroupManager().InitGroups();
 				SongManager.Initialize();
                 LowPriorityWorker.Init(queryReactor);
 			}
