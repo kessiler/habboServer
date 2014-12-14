@@ -1,3 +1,11 @@
-source/bin
-source/obj
-source/*.suo
+# Files Emu
+cyberEmu/src/bin
+cyberEmu/src/obj
+cyberEmu/src/*.suo
+
+# Files plusCMS
+plusCMS/composer.lock
+plusCMS/vendor
+
+# Files IDEA
+.idea

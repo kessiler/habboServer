@@ -1,0 +1,8 @@
+{
+	"name": "kessiler/plusCMS",
+	"version": "0.0.0",
+	"minimum-stability": "dev",
+	"require": {
+		"silex/silex": "1.2.2"
+	}
+}
