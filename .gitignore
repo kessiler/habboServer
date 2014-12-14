@@ -6,6 +6,7 @@ cyberEmu/src/*.suo
 # Files plusCMS
 plusCMS/composer.lock
 plusCMS/vendor
+plusCMS/app/cache
 
 # Files IDEA
 .idea
