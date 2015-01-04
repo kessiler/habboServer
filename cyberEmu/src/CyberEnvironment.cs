@@ -172,13 +172,13 @@ namespace Cyber
                 }
 
                 FriendRequestLimit = (uint)int.Parse(CyberEnvironment.GetConfig().data["client.maxrequests"]);
-
-                Game = new Game(int.Parse(GetConfig().data["game.tcp.conlimit"]));
-                Game.start();
                 if (ExtraSettings.RunExtraSettings())
                 {
                     Logging.WriteLine("Loaded an extra settings file.");
                 }
+
+                Game = new Game(int.Parse(GetConfig().data["game.tcp.conlimit"]));
+                Game.start();
 
                 ConnectionManager = new ConnectionHandling(int.Parse(GetConfig().data["game.tcp.port"]), int.Parse(GetConfig().data["game.tcp.conlimit"]), int.Parse(GetConfig().data["game.tcp.conperip"]), GetConfig().data["game.tcp.enablenagles"].ToLower() == "true");
 
@@ -206,16 +206,18 @@ namespace Cyber
                 Logging.WriteLine("Game was succesfully loaded.");
                 isLive = true;
             }
-            catch (KeyNotFoundException)
+            catch (KeyNotFoundException ex)
             {
                 Logging.WriteLine("Something is missing in your configuration", ConsoleColor.Red);
+                Logging.WriteLine(ex.ToString(), ConsoleColor.Yellow);
                 Logging.WriteLine("Please type a key to shut down ...", ConsoleColor.Gray);
                 Console.ReadKey(true);
                 CyberEnvironment.Destroy();
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidOperationException ex1)
             {
-                Logging.WriteLine("Something wrong happened: " + ex.Message, ConsoleColor.Red);
+                Logging.WriteLine("Something wrong happened: " + ex1.Message, ConsoleColor.Red);
+                Logging.WriteLine(ex1.ToString(), ConsoleColor.Yellow);
                 Logging.WriteLine("Please type a key to shut down...", ConsoleColor.Gray);
                 Console.ReadKey(true);
                 CyberEnvironment.Destroy();
